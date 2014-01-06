@@ -1,3 +1,8 @@
+/*
+author : aancw
+Version : v1.2
+OS : Windows 7 x64
+*/
 #include <winsock2.h>
 #include <windows.h>
 #include <string>
