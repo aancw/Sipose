@@ -5,10 +5,10 @@ Sipose is stands for Simple Port Scanner
 
 Windows User : 
 
-- Just Click PortScanner.exe and enjoy!
+- Just Click Sipose.exe and enjoy!
 
 Linux User : 
-- You can recompile or just execute file with ./PortScanner 
+- You can recompile or just execute file with ./Sipose
 
 Note : 
 If you are Windows User and the Dll is missing,
