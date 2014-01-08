@@ -8,7 +8,7 @@ Windows User :
 - Just Click Sipose.exe and enjoy!
 
 Linux User : 
-- You can recompile or just execute file with ./Sipose
+- You can compile Sipose source code from src folder and execute file with ./Sipose
 
 Note : 
 If you are Windows User and the Dll is missing,
