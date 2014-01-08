@@ -1,6 +1,10 @@
 Changelog
 
-PortScanner v1.2
+Sipose v1.2
 1. Menambahkan fitur logging file
 2. Update User Interface(Text)
 3. Optimalkan Port Scanning Speed
+
+Sipose v1.3
+1. Linux Support
+2. Perbaikan Sipose Scanner
