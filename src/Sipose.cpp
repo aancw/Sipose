@@ -121,8 +121,20 @@ string dateTime()
 	string Waktu = "["+HariStr+"/"+BulanStr+"/"+TahunStr+" "+JamStr+":"+MenitStr+":"+DetikStr+"]  ";
 	return Waktu;
 }
-int scanPortWithSingle(int iResult,struct hostent *alamat2,int SinglePort)
+int scanPortWithSingle(struct hostent *alamat2,int SinglePort)
 {
+	//-------------------
+	// Inisialisasi Winsock
+	#ifdef _WIN32
+		WSADATA wsaData;
+		int iResult = WSAStartup(MAKEWORD(2,2), &wsaData);
+		if (iResult != NO_ERROR)
+		{
+			CONSOLE_Print( dateTime() + "[ERROR] " + "WSAStartup failed with error : "+UTIL_ToString(iResult));
+			return 1;
+		}
+	#endif
+
 	//--------------------
 	// Membuat Socket untuk koneksi ke server
 	int Socket;
@@ -163,8 +175,20 @@ int scanPortWithSingle(int iResult,struct hostent *alamat2,int SinglePort)
 		close(Socket);
 	#endif
 }
-int scanPortWithRange(int Start,int End,int iResult,struct hostent	*alamat2)
+int scanPortWithRange(int Start,int End,struct hostent	*alamat2)
 {
+	//-------------------
+	// Inisialisasi Winsock
+	#ifdef _WIN32
+		WSADATA wsaData;
+		int iResult = WSAStartup(MAKEWORD(2,2), &wsaData);
+		if (iResult != NO_ERROR)
+		{
+			CONSOLE_Print( dateTime() + "[ERROR] " + "WSAStartup failed with error : "+UTIL_ToString(iResult));
+			return 1;
+		}
+	#endif
+
 	for (Start; Start<=End; Start++)
 	{
 	
@@ -221,18 +245,6 @@ int main (){
 	char alamat1[20];
 	u_long iMode=0;
 	
-	//-------------------
-	// Inisialisasi Winsock
-	#ifdef _WIN32
-		WSADATA wsaData;
-		int iResult = WSAStartup(MAKEWORD(2,2), &wsaData);
-		if (iResult != NO_ERROR)
-		{
-			CONSOLE_Print( dateTime() + "[ERROR] " + "WSAStartup failed with error : "+UTIL_ToString(iResult));
-			return 1;
-		}
-	#endif
-	
 	CONSOLE_Print(dateTime() + "[INFO] " + "Starting Sipose Application");
 	CONSOLE_Print(dateTime() + "[INFO] " +  appName+" "+version+" by "+author);
 	DEBUG_Print("\nPort Scanning Mode ");
@@ -271,18 +283,19 @@ int main (){
 
 	alamat2 = gethostbyname(alamat1);
 
-	CONSOLE_Print(dateTime() + "[INFO] Please be patient if you use Range Port Scanning Mode ");
+	CONSOLE_Print(dateTime() +  "[INFO] Please be patient if you use Range Port Scanning Mode ");
 	CONSOLE_Print(dateTime() + "[PROCCESS] " + "Begin Port Scanning on "+string(alamat1)+"\n");
 	CONSOLE_Print(dateTime() + "[PROCCESS] "  + "Port\tStatus");
 	
 	if( Pilihan == 1)
 	{
-		scanPortWithSingle(iResult,alamat2,SinglePort);
+		
+		scanPortWithSingle(alamat2,SinglePort);
 	}
 	else if( Pilihan == 2)
 	{
 		// Scanning Proccess for Range Scanning Mode
-		scanPortWithRange(Start,End,iResult,alamat2);
+		scanPortWithRange(Start,End,alamat2);
 	}
 
 	CONSOLE_Print(dateTime() + "[INFO] " + "End Port Scanning on "+string(alamat1)+"\n");
