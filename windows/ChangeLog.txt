@@ -5,6 +5,11 @@ Sipose v1.2
 2. Update User Interface(Text)
 3. Optimalkan Port Scanning Speed
 
-Sipose v1.3
+Sipose v1.3 - 06 Jan 2014
 1. Linux Support
-2. Perbaikan Sipose Scanner Methode
+2. Perbaikan Sipose Scanner
+
+Sipose v2.0 - 07 Mar 2014
+1. Update sistem Log
+2. Add Date Time dan info proccess
+3. Add Single dang Range Port Scanning Mode
