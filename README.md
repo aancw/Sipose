@@ -1,7 +1,7 @@
 Sipose
 ======
 
-Sipose is stands for Simple Port Scanner
+Sipose is stands for Simple Port Scanner were made using winsock and linux socket with C++ language
 
 Windows User : 
 
