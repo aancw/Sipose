@@ -16,7 +16,8 @@ Tested OS :
 - Slacware 14.1
 
 Compiler :
-- g++ (Debian 4.7.2-5) 4.7.2
+- g++ version 4.7.2 (Debian 4.7.2-5) 
+- gcc version 4.7.2 (Debian 4.7.2-5)
 
 Windows User : 
 
