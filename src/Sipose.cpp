@@ -106,7 +106,7 @@ string dateTime()
    int Bulan	= 1 + ltm->tm_mon;
    int Tahun	= 1900 + ltm->tm_year;
    int Jam		= ltm->tm_hour;
-   int Menit	= ltm->tm_min - 8;
+   int Menit	= ltm->tm_min ;
    int Detik	= ltm->tm_sec;
    
 	//---------------
