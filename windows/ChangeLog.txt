@@ -14,3 +14,6 @@ Sipose v2.0 - 07 Mar 2014
 2. Add Date Time dan info proccess
 3. Add Single dang Range Port Scanning Mode
 4. Update TimeZone for GMT+7
+
+Sipose v2.1 - 11 Jan 2014
+1. Fix issue crash in windows

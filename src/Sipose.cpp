@@ -1,10 +1,10 @@
 /*
 	
-	Author : aancw
-	Created on : 07 Mar 2014
-	Tested OS : Windows 7 x64,Linux debian Wheezy
-	Compiler : g++ (Debian 4.7.2-5) 4.7.2
-	Version : v2.0
+	Author : aancw < cacaddv[at]gmail[dot]com >
+	Created on : 11 Mar 2014
+	Tested OS : Windows 7 x64,Linux debian Wheezy(7.0 - 7.4),Slackware 14.1,Fedora
+	Compiler : g++/gcc (Debian 4.7.2-5) 4.7.2
+	Version : v2.1
 
 	This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -121,7 +121,7 @@ string dateTime()
 	string Waktu = "["+HariStr+"/"+BulanStr+"/"+TahunStr+" "+JamStr+":"+MenitStr+":"+DetikStr+"]  ";
 	return Waktu;
 }
-int scanPortWithSingle(struct hostent *alamat2,int SinglePort)
+int scanPortWithSingle(char* alamat1,int SinglePort)
 {
 	//-------------------
 	// Inisialisasi Winsock
@@ -150,6 +150,8 @@ int scanPortWithSingle(struct hostent *alamat2,int SinglePort)
 
 	//-------------------
 	// Untuk Sockaddr seperti ip address dan port yang akan terkoneksi
+	hostent* alamat2;
+	alamat2 = gethostbyname(alamat1);
 	sockaddr_in SockAddr;
 	SockAddr.sin_family=AF_INET;
 	SockAddr.sin_addr.s_addr = *((unsigned long*)alamat2->h_addr); 
@@ -157,7 +159,6 @@ int scanPortWithSingle(struct hostent *alamat2,int SinglePort)
 
 	if (connect(Socket, (sockaddr*)(&SockAddr), sizeof(SockAddr)) == 0)
 	{
-		//CONSOLE_Print(UTIL_ToString(Start)+"\tclose :");
 		CONSOLE_Print(dateTime() + "[PROCCESS] " + UTIL_ToString(SinglePort)+"\tOpen");
 	}
 	else
@@ -175,7 +176,7 @@ int scanPortWithSingle(struct hostent *alamat2,int SinglePort)
 		close(Socket);
 	#endif
 }
-int scanPortWithRange(int Start,int End,struct hostent	*alamat2)
+int scanPortWithRange(int Start,int End,char* alamat1)
 {
 	//-------------------
 	// Inisialisasi Winsock
@@ -207,6 +208,8 @@ int scanPortWithRange(int Start,int End,struct hostent	*alamat2)
 
 		//-------------------
 		// Untuk Sockaddr seperti ip address dan port yang akan terkoneksi
+		hostent* alamat2;
+		alamat2 = gethostbyname(alamat1);
 		sockaddr_in SockAddr;
 		SockAddr.sin_family=AF_INET;
 		SockAddr.sin_addr.s_addr = *((unsigned long*)alamat2->h_addr); 
@@ -236,11 +239,10 @@ int main (){
 	// Deklarasi Variabel author,version,appName
 	string author	= "aancw";
 	string appName	= "Sipose";
-	string version	= "v2.0";
+	string version	= "v2.1";
 
 	//---------------------
 	// Variable untuk Ip Address dan port yang akan dikoneksikan ke server
-	struct hostent	*alamat2;
 	int	Start,End,Pilihan,SinglePort;
 	char alamat1[20];
 	u_long iMode=0;
@@ -268,34 +270,33 @@ int main (){
 		DEBUG_Print("Enter Port Range ");
 		DEBUG_Print("Start : ");
 		cin>>Start;
-		DEBUG_Print("End : ");
+		DEBUG_Print("End : \n");
 		cin>>End;
 		CONSOLE_Print(dateTime() + "[INFO] Scanning speed depends on the speed of the internet and the amount of range that you enter!");
+
+		#ifdef _WIN32
+		system("CLS");//clear the screen
+		#elif __linux__
+		printf("\033[H\033[J"); // Linux Clear Screen
+		#endif
 	}
 	else
 		CONSOLE_Print("Untuk saat ini hanya ada dua pilihan Mode Scanning ");
 
-#ifdef _WIN32
-	system("CLS");//clear the screen
-#elif __linux__
-	printf("\033[H\033[J"); // Linux Clear Screen
-#endif
 
-	alamat2 = gethostbyname(alamat1);
-
-	CONSOLE_Print(dateTime() +  "[INFO] Please be patient if you use Range Port Scanning Mode ");
+	CONSOLE_Print(dateTime() + "[INFO] Please be patient if you use Range Port Scanning Mode ");
 	CONSOLE_Print(dateTime() + "[PROCCESS] " + "Begin Port Scanning on "+string(alamat1)+"\n");
 	CONSOLE_Print(dateTime() + "[PROCCESS] "  + "Port\tStatus");
 	
 	if( Pilihan == 1)
 	{
 		
-		scanPortWithSingle(alamat2,SinglePort);
+		scanPortWithSingle(alamat1,SinglePort);
 	}
 	else if( Pilihan == 2)
 	{
 		// Scanning Proccess for Range Scanning Mode
-		scanPortWithRange(Start,End,alamat2);
+		scanPortWithRange(Start,End,alamat1);
 	}
 
 	CONSOLE_Print(dateTime() + "[INFO] " + "End Port Scanning on "+string(alamat1)+"\n");
