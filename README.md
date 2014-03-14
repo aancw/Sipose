@@ -14,6 +14,7 @@ Tested OS :
 - Windows 7 x64
 - Linux debian Wheezy(7.0 - 7.4)
 - Slacware 14.1
+- Fedora 20 
 
 Compiler :
 - g++ version 4.7.2 (Debian 4.7.2-5) 
